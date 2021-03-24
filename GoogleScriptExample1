@@ -1,5 +1,5 @@
 function MacroTest() {
-  var spreadsheet = SpreadsheetApp.openById("1Jp6DPuH4lsVXd0Rlmd4tDv9E5Y9H_uC3yEGktDPUM2");
+  var spreadsheet = SpreadsheetApp.openById("1Jp6DPuH4lsVXd0Rlmd4tDv9E5Y9H_uC3yEGktDPUM2M");
   var spreadsheet = spreadsheet.getSheetByName("Sheet6");
   spreadsheet.getRange('A1').activate();
   spreadsheet.getCurrentCell().setValue('Source of Truth');
@@ -8,7 +8,7 @@ function MacroTest() {
   spreadsheet.getRange('C1').activate();
   spreadsheet.getCurrentCell().setValue('Field');
   
-  var SalesforceImport = SpreadsheetApp.openById("1tO8O5yh6AB1NuD2xNAIssob5GOgyVicHnYd9a0uuNQ");
+  var SalesforceImport = SpreadsheetApp.openById("1tO8O5yh6AB1NuD2xNAIssob5GOgyVicHnYd9a0uuNQI");
   var sheets = SalesforceImport.getSheets();
   var sheetNames = [];
   sheets.forEach(function(sheet,i) 
@@ -44,14 +44,7 @@ spreadsheet.getRange('B1').activate();
 spreadsheet.getCurrentCell().getNextDataCell(SpreadsheetApp.Direction.DOWN).activate();
 spreadsheet.getCurrentCell().offset(0,-1).activate();
 var currentCell = spreadsheet.getCurrentCell();
-spreadsheet.getSelection().getNextDataRange(SpreadsheetApp.Direction.UP).activate();
+spreadsheet.getSelection().getNextDataRange(SpreadsheetApp.Direction.UP).offset(1,0).activate();
 currentCell.activateAsCurrentCell();
 spreadsheet.getActiveRange().activate().setValue('Salesforce')
 };
-
-
-
-
-
-
-
