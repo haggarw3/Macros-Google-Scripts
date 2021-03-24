@@ -1,0 +1,57 @@
+function MacroTest() {
+  var spreadsheet = SpreadsheetApp.openById("1Jp6DPuH4lsVXd0Rlmd4tDv9E5Y9H_uC3yEGktDPUM2");
+  var spreadsheet = spreadsheet.getSheetByName("Sheet6");
+  spreadsheet.getRange('A1').activate();
+  spreadsheet.getCurrentCell().setValue('Source of Truth');
+  spreadsheet.getRange('B1').activate();
+  spreadsheet.getCurrentCell().setValue('Topic/Table');
+  spreadsheet.getRange('C1').activate();
+  spreadsheet.getCurrentCell().setValue('Field');
+  
+  var SalesforceImport = SpreadsheetApp.openById("1tO8O5yh6AB1NuD2xNAIssob5GOgyVicHnYd9a0uuNQ");
+  var sheets = SalesforceImport.getSheets();
+  var sheetNames = [];
+  sheets.forEach(function(sheet,i) 
+  {
+    
+    sheetNames.push(sheet.getName());
+    spreadsheet.getCurrentCell().offset(1,-1).activate();
+    spreadsheet.getCurrentCell().setValue(sheetNames[i]);
+    spreadsheet.getCurrentCell().offset(0,1).activate();  
+
+    var SalesforceImportActive = SalesforceImport.getSheetByName(sheetNames[i]);
+    SalesforceImportActive.getRange('B2').activate();
+    var currentCell = SalesforceImportActive.getCurrentCell();
+    SalesforceImportActive.getSelection().getNextDataRange(SpreadsheetApp.Direction.DOWN).activate();
+    currentCell.activateAsCurrentCell();
+    var data = SalesforceImportActive.getActiveRange().getValues();
+    spreadsheet.getRange(spreadsheet.getCurrentCell().getRow(),spreadsheet.getCurrentCell().getColumn(),data.length).activate().setValues(data);
+
+   spreadsheet.getRange('B1').activate();
+   var table_name = spreadsheet.getCurrentCell().getNextDataCell(SpreadsheetApp.Direction.DOWN).getValue();
+   spreadsheet.getRange('C1').activate();
+   spreadsheet.getCurrentCell().getNextDataCell(SpreadsheetApp.Direction.DOWN).activate();
+   spreadsheet.getCurrentCell().offset(0,-1).activate();
+   var currentCell = spreadsheet.getCurrentCell();
+   spreadsheet.getSelection().getNextDataRange(SpreadsheetApp.Direction.UP).activate();
+   currentCell.activateAsCurrentCell();
+   spreadsheet.getActiveRange().activate().setValue(table_name)
+   spreadsheet.getRange('C1').activate();
+   spreadsheet.getCurrentCell().getNextDataCell(SpreadsheetApp.Direction.DOWN).activate();
+   });
+
+spreadsheet.getRange('B1').activate();
+spreadsheet.getCurrentCell().getNextDataCell(SpreadsheetApp.Direction.DOWN).activate();
+spreadsheet.getCurrentCell().offset(0,-1).activate();
+var currentCell = spreadsheet.getCurrentCell();
+spreadsheet.getSelection().getNextDataRange(SpreadsheetApp.Direction.UP).activate();
+currentCell.activateAsCurrentCell();
+spreadsheet.getActiveRange().activate().setValue('Salesforce')
+};
+
+
+
+
+
+
+
